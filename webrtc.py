@@ -11,7 +11,7 @@ import base64
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
 
 st.set_page_config(
-    page_title='Face Features and Landmarks Detection', layout='wide')
+    page_title='Face Features and Landmarks Detection')
 
 st.title('Facial Landmarks Detection App')
 st.sidebar.title('Navigation')
