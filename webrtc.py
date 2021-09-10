@@ -8,7 +8,7 @@ from PIL import Image
 import numpy as np
 from io import BytesIO
 import base64
-from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
+from streamlit_webrtc import VideoTransformerBase, webrtc_streamer, ClientSettings
 
 st.set_page_config(
     page_title='Face Features and Landmarks Detection')
@@ -57,15 +57,21 @@ class VideoTransformer2(VideoTransformerBase):
 
 
 if page == "Face Detection":
-    ctxt = webrtc_streamer(key="example2", video_transformer_factory=VideoTransformer2)  
+    ctxt = webrtc_streamer(client_settings = ClientSettings(
+            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+            media_stream_constraints={"video": True, "audio": False},
+        ),key="example2", video_transformer_factory=VideoTransformer2)  
     if ctxt.video_transformer:
-        ctxt.video_transformer.threshold = st.slider("Threshold", 0, 255, 120)
+        ctxt.video_transformer.threshold = st.slider("Eye tracking Threshold", 0, 255, 120)
 
 
 
 
 if page == "Edge Detection":
-    ctx = webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
+    ctx = webrtc_streamer(client_settings = ClientSettings(
+            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+            media_stream_constraints={"video": True, "audio": False},
+        ),key="example", video_transformer_factory=VideoTransformer)
     if ctx.video_transformer:
         ctx.video_transformer.threshold1 = st.slider("Threshold1", 0, 1000, 100)
         ctx.video_transformer.threshold2 = st.slider("Threshold2", 0, 1000, 200)
