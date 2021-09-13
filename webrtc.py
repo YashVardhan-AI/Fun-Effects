@@ -9,6 +9,7 @@ import numpy as np
 from io import BytesIO
 import base64
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer, ClientSettings
+import gc
 
 st.set_page_config(
     page_title='Face Features and Landmarks Detection')
@@ -56,6 +57,7 @@ class VideoTransformer2(VideoTransformerBase):
         return img
 
 
+
 if page == "Face Detection":
     ctxt = webrtc_streamer(client_settings = ClientSettings(
             rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
@@ -76,7 +78,9 @@ if page == "Edge Detection":
         ctx.video_transformer.threshold1 = st.slider("Threshold1", 0, 1000, 100)
         ctx.video_transformer.threshold2 = st.slider("Threshold2", 0, 1000, 200)
     
-
+collected = gc.collect()
+print("Garbage collector: collected",
+          "%d objects." % collected)
 
 if page == 'Welcome':
     st.header("Welcome to the Neural Network based facial landmarks detection App!")
