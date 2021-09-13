@@ -77,10 +77,9 @@ if page == "Edge Detection":
     if ctx.video_transformer:
         ctx.video_transformer.threshold1 = st.slider("Threshold1", 0, 1000, 100)
         ctx.video_transformer.threshold2 = st.slider("Threshold2", 0, 1000, 200)
-    
-collected = gc.collect()
-print("Garbage collector: collected",
-          "%d objects." % collected)
+
+
+
 
 if page == 'Welcome':
     st.header("Welcome to the Neural Network based facial landmarks detection App!")
@@ -90,3 +89,7 @@ if page == 'Welcome':
 if page == 'About':
     st.header("About section")
     about()
+    
+
+gc.enable()    
+gc.collect()
