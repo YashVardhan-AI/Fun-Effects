@@ -53,7 +53,7 @@ def move_box(box, offset):
         top_y = box[1] + offset[1]
         right_x = box[2] + offset[0]
         bottom_y = box[3] + offset[1]
-        gc.collect()
+        
         return [left_x, top_y, right_x, bottom_y]
 
 def detect_marks(img, model, face):
@@ -91,7 +91,7 @@ def detect_marks(img, model, face):
         marks[:, 0] += facebox[0]
         marks[:, 1] += facebox[1]
         marks = marks.astype(np.uint)
-        gc.collect()
+        
         return marks
     except Exception as e:
         pass
