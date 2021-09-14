@@ -4,10 +4,7 @@ from helper.face_detector import get_face_detector, find_faces, draw_faces
 from helper.face_landmarks import get_landmark_model
 import streamlit as st
 from helper.info import about, welcome
-from PIL import Image
 import numpy as np
-from io import BytesIO
-import base64
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer, ClientSettings
 import gc
 
