@@ -12,7 +12,7 @@ def get_landmark_model(saved_model='models/features_models'):
 
     #model = keras.models.load_model(saved_model)
     model = tf.saved_model.load(saved_model)
-    gc.collect()
+    
     return model
 
 def get_square_box(box):
