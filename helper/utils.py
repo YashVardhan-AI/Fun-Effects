@@ -1,12 +1,12 @@
 import cv2
 import numpy as np
-import gc
+
   
 def eye_on_mask(mask, side, shape):
     points = [shape[i] for i in side]
     points = np.array(points, dtype=np.int32)
     cv2.fillConvexPoly(mask, points, 255)
-    gc.collect()
+    
     return mask
 
     
