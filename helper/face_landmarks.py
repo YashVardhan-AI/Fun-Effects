@@ -2,7 +2,7 @@
 import cv2
 import numpy as np
 import tensorflow as tf
-import gc
+
 
 
 def get_landmark_model(saved_model='models/features_models'):
@@ -44,7 +44,7 @@ def get_square_box(box):
 
     # Make sure box is always square.
     assert ((right_x - left_x) == (bottom_y - top_y)), 'Box is not square.'
-    gc.collect()
+    
     return [left_x, top_y, right_x, bottom_y]
 
 def move_box(box, offset):
