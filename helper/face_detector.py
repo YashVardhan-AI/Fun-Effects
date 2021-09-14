@@ -1,3 +1,4 @@
+import gc
 import cv2
 import numpy as np
 
@@ -6,6 +7,7 @@ def get_face_detector():
     modelFile = "models/res10_300x300_ssd_iter_140000.caffemodel"
     configFile = "models/deploy.prototxt"
     model = cv2.dnn.readNetFromCaffe(configFile, modelFile)
+    gc.collect()
     return model
 
 def find_faces(img, model):

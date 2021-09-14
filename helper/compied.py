@@ -1,9 +1,10 @@
+import gc
 from helper.utils import *
 import cv2
 import numpy as np
 from helper.face_landmarks import detect_marks
 from helper.face_landmarks import draw_marks, line, linemain
-
+import gc
 
 
 def funcmain(img, landmark_model, rect, value, left=[36, 37, 38, 39, 40, 41], right=[42, 43, 44, 45, 46, 47], kernel = np.ones((9, 9), np.uint8)):
@@ -30,7 +31,7 @@ def funcmain(img, landmark_model, rect, value, left=[36, 37, 38, 39, 40, 41], ri
                 points2 = shape[27:31]
                 points3 = shape[30:36]
                 points4 = shape[48:]
-        
+                gc.collect()
                 return cxl, cyl, cxr, cyr, points, points2, points3, points4, thresh
         except:
                 pass
@@ -45,4 +46,5 @@ def draw_all(img, cxl, cyl, cxr, cyr, points, points2, points3, points4):
         img = linemain(img, points2)
         img = cv2.circle(img, (cxl, cyl), 8, (0, 0, 255), 2)
         img = cv2.circle(img, (cxr, cyr), 8, (0, 0, 255), 2)
+        gc.collect()
         return img

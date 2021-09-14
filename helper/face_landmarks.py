@@ -2,7 +2,7 @@
 import cv2
 import numpy as np
 import tensorflow as tf
-from tensorflow import keras
+import gc
 
 
 def get_landmark_model(saved_model='models/features_models'):
@@ -12,6 +12,7 @@ def get_landmark_model(saved_model='models/features_models'):
 
     #model = keras.models.load_model(saved_model)
     model = tf.saved_model.load(saved_model)
+    gc.collect()
     return model
 
 def get_square_box(box):
@@ -43,7 +44,7 @@ def get_square_box(box):
 
     # Make sure box is always square.
     assert ((right_x - left_x) == (bottom_y - top_y)), 'Box is not square.'
-
+    gc.collect()
     return [left_x, top_y, right_x, bottom_y]
 
 def move_box(box, offset):
@@ -52,6 +53,7 @@ def move_box(box, offset):
         top_y = box[1] + offset[1]
         right_x = box[2] + offset[0]
         bottom_y = box[3] + offset[1]
+        gc.collect()
         return [left_x, top_y, right_x, bottom_y]
 
 def detect_marks(img, model, face):
@@ -89,7 +91,7 @@ def detect_marks(img, model, face):
         marks[:, 0] += facebox[0]
         marks[:, 1] += facebox[1]
         marks = marks.astype(np.uint)
-
+        gc.collect()
         return marks
     except Exception as e:
         pass
