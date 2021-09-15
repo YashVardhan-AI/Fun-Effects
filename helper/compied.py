@@ -1,4 +1,3 @@
-import gc
 from helper.utils import *
 import cv2
 import numpy as np
@@ -46,5 +45,5 @@ def draw_all(img, cxl, cyl, cxr, cyr, points, points2, points3, points4):
         img = linemain(img, points2)
         img = cv2.circle(img, (cxl, cyl), 8, (0, 0, 255), 2)
         img = cv2.circle(img, (cxr, cyr), 8, (0, 0, 255), 2)
-        gc.collect()
+ 
         return img
