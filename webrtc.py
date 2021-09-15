@@ -1,7 +1,6 @@
 import cv2
 from helper.compied import funcmain, draw_all
 from helper.face_detector import get_face_detector, find_faces, draw_faces
-from helper.face_landmarks import get_landmark_model
 import streamlit as st
 from helper.info import about, welcome
 import numpy as np
@@ -18,7 +17,7 @@ page = st.sidebar.selectbox("Select page:", options=[
 
 
 face_model = get_face_detector()
-landmark_model = get_landmark_model()
+
 
 class VideoTransformer(VideoTransformerBase):
     def __init__(self):
@@ -46,7 +45,7 @@ class VideoTransformer2(VideoTransformerBase):
             
             for rect in rects:
                 img = draw_faces(img, rects)
-                cxl, cyl, cxr, cyr, points, points2, points3, points4, thresh = funcmain(img, landmark_model, rect, self.threshold)
+                cxl, cyl, cxr, cyr, points, points2, points3, points4, thresh = funcmain(img, rect, self.threshold)
                 img = draw_all(img, cxl, cyl, cxr, cyr, points,points2, points3, points4)
         except Exception as e:
             print(e)
