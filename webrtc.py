@@ -4,7 +4,7 @@ from helper.face_detector import get_face_detector, find_faces, draw_faces
 import streamlit as st
 from helper.info import about, welcome
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer, ClientSettings
-import gc
+
 
 st.set_page_config(
     page_title='Face Features and Landmarks Detection')
@@ -84,6 +84,4 @@ if page == 'Welcome':
 if page == 'About':
     st.header("About section")
     about()
-    
 
-gc.collect()
