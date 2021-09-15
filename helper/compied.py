@@ -6,9 +6,10 @@ from helper.face_landmarks import detect_marks
 from helper.face_landmarks import draw_marks, line, linemain
 
 
-def funcmain(img, landmark_model, rect, value, left=[36, 37, 38, 39, 40, 41], right=[42, 43, 44, 45, 46, 47], kernel = np.ones((9, 9), np.uint8)):
+
+def funcmain(img, rect, value, left=[36, 37, 38, 39, 40, 41], right=[42, 43, 44, 45, 46, 47], kernel = np.ones((9, 9), np.uint8)):
         try:
-                shape = detect_marks(img, landmark_model, rect)
+                shape = detect_marks(img, rect)
                 mask = np.zeros(img.shape[:2], dtype=np.uint8)
                 mask = eye_on_mask(mask, left, shape)
                 mask = eye_on_mask(mask, right, shape)
