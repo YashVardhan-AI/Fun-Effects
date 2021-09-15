@@ -86,5 +86,4 @@ if page == 'About':
     about()
     
 
-gc.enable()    
 gc.collect()
