@@ -1,10 +1,12 @@
-import cv2
-from helper.compied import funcmain, draw_all
-from helper.face_detector import get_face_detector, find_faces, draw_faces
 import streamlit as st
 from helper.info import about, welcome
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer, ClientSettings
+from helper.effects import *
+from rolling import roll
+from helper.compied import funcmain, draw_all
+from helper.face_detector import get_face_detector, find_faces, draw_faces
 
+face_model = get_face_detector()
 
 st.set_page_config(
     page_title='Face Features and Landmarks Detection')
@@ -12,66 +14,58 @@ st.set_page_config(
 st.title('Facial Landmarks Detection App')
 st.sidebar.title('Navigation')
 page = st.sidebar.selectbox("Select page:", options=[
-                            "Welcome", "Face Detection", "Edge Detection", "About"])
+                            "Welcome", "Effects", "About"])
 
 
-face_model = get_face_detector()
 
 
-class VideoTransformer(VideoTransformerBase):
-    def __init__(self):
-        self.threshold1 = 100
-        self.threshold2 = 200
-
-    def transform(self, frame):
-        img = frame.to_ndarray(format="bgr24")
-
-        img = cv2.cvtColor(
-            cv2.Canny(img, self.threshold1, self.threshold2), cv2.COLOR_GRAY2BGR
-        )
-
-        return img
-
-class VideoTransformer2(VideoTransformerBase):
-    def __init__(self):
-        self.threshold = 120
+if page == "Effects":
+    effect_name = st.sidebar.selectbox("Choose the style model: ", effect_names)
+    
+    if effect_name == "surprise":
+        roll()
+    else:
+        class VideoTransformer(VideoTransformerBase):
+            effect_name = effect_name
         
+            def transform(self, frame):
+                img = frame.to_ndarray(format="bgr24")
+                if effect_name == "cartoonify":
+                    img = cartoonify(img)
+                elif effect_name == "negative":
+                    img = negative(img)
+                elif effect_name == "econify":
+                    img = econify(img)
+                elif effect_name == "watercolor":
+                    img = watercolor(img)
+                elif effect_name == "pencil":
+                    img = pencil(img)
+                    
+                elif effect_name == "canny":
+                    img = canny_img(img)
+                
+                
+                elif effect_name == "faces":
+                    try:
+                        rects = find_faces(img, face_model)
+                    
+                        for rect in rects:
+                            img = draw_faces(img, rects)
+                            cxl, cyl, cxr, cyr, points, points2, points3, points4, thresh = funcmain(img, rect, 120)
+                            img = draw_all(img, cxl, cyl, cxr, cyr, points,points2, points3, points4)
+                            
+                    except Exception as e:
+                        print(e)
+                
 
-    def transform(self, frame):
-        try:
-            img = frame.to_ndarray(format="bgr24")
-            rects = find_faces(img, face_model)
-            
-            for rect in rects:
-                img = draw_faces(img, rects)
-                cxl, cyl, cxr, cyr, points, points2, points3, points4, thresh = funcmain(img, rect, self.threshold)
-                img = draw_all(img, cxl, cyl, cxr, cyr, points,points2, points3, points4)
-        except Exception as e:
-            print(e)
-
-        return img
+                
+                return img
 
 
-
-if page == "Face Detection":
-    ctxt = webrtc_streamer(client_settings = ClientSettings(
+        ctxt = webrtc_streamer(client_settings = ClientSettings(
             rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
-            media_stream_constraints={"video": True, "audio": False},
-        ),key="example2", video_transformer_factory=VideoTransformer2)  
-    if ctxt.video_transformer:
-        ctxt.video_transformer.threshold = st.slider("Eye tracking Threshold", 0, 255, 120)
+            media_stream_constraints={"video": True, "audio": False},),key="effects", video_transformer_factory=VideoTransformer)  
 
-
-
-
-if page == "Edge Detection":
-    ctx = webrtc_streamer(client_settings = ClientSettings(
-            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
-            media_stream_constraints={"video": True, "audio": False},
-        ),key="example", video_transformer_factory=VideoTransformer)
-    if ctx.video_transformer:
-        ctx.video_transformer.threshold1 = st.slider("Threshold1", 0, 1000, 100)
-        ctx.video_transformer.threshold2 = st.slider("Threshold2", 0, 1000, 200)
 
 
 
