@@ -23,9 +23,6 @@ def welcome():
     st.markdown("- You Can do it in real time or upload an Image")
     st.markdown("- You Can also change the values of threshold 1 and 2 to get a better result")
     st.markdown("###        About: to read more about the neural network and the algorithm behind the hooks and see how it works is about.")
-    imglist =[ 'Face_detection/img/obama.jpg',
-    'Face_detection/processed/edited_obama.jpg']
-    st.image(imglist[0], width=300)
-    st.image(imglist[1], width = 300)
+
     
     
