@@ -17,17 +17,22 @@ def about():
     )
 
 def welcome():
-    st.markdown("By Yash Vardhan")
-    st.markdown("## Please select the page you want to navigate to.")
-    st.markdown("  ")
-    st.markdown("  ")
-    st.markdown("  ")
-    st.markdown("""### Face Detection : try the app, you can choose your own images for both style and content, or try the pre-loaded ones.""")
-    st.markdown("""- Threshold slider allows you to change the  threshhold value""")
-    st.markdown("""- The show threshold checkbox allows you to see the thresholded image""")    
-    st.markdown("  ")
-    st.markdown("### edge detection : In this page you can detect all the edges in a image")
-    st.markdown("- You Can do it in real time or upload an Image")
-    st.markdown("- You Can also change the values of threshold 1 and 2 to get a better result")
-    st.markdown("###        About: to read more about the neural network and the algorithm behind the hooks and see how it works is about.")
+    st.markdown(
+        """
+        by [Yash Vardhan](https://github.com/YashVardhan-AI)
+        
+        ## Please select the page you want to navigate to:
+        - Welcome (this page)
+        - Effects: Effects you want to apply to the input video
+            - Cartoonify
+            - Negative 
+            - Econify
+            - Watercolor
+            - Pencil
+            - Canny
+            - Faces
+            - Surprise (a very interesting surprise)
+        - About: to read more about the neural network and the algorithm behind the hooks and see how it works is about.
+        """
+    )
  
