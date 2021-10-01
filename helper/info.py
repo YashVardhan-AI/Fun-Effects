@@ -1,13 +1,20 @@
 import streamlit as st
 
-def about():
-    st.markdown("""### The Method I used for detecting The Facial features uses Tensorflow and OpenCV. I use Tensorflow model for detecting a 72 point face mash from which the points that corresspond to the facial features can be used to detect those landmarks.  I also use Opencv to Detect and do Eye tracking.""")
-    st.markdown("### below are the guides and Tutorials that helped do the project")
-    st.markdown('Link to the orignal github repository for the model >><a href="https://github.com/yinguobing/cnn-facial-landmark" target="_blank">The github link</a>', unsafe_allow_html=True)
-    st.markdown('link to the eye tracking guide>> <a href="https://towardsdatascience.com/real-time-eye-tracking-using-opencv-and-dlib-b504ca724ac6" target="_blank">The eye tracking guide</a>', unsafe_allow_html=True)
-    st.markdown('link to the comparison of different face Detection techniques>> <a href="https://towardsdatascience.com/face-detection-models-which-to-use-and-why-d263e82c302c" target="_blank">The comparison</a>', unsafe_allow_html=True)
-    st.markdown('### Link to my github repository>> <a href="https://github.com/porus-creator/cotm_3" target="_blank">Click Here</a> ', unsafe_allow_html=True )
 
+def about():
+    st.markdown(
+        """
+        ## How does it work? 
+        The Method Used for Detection of Facial Features uses [TensorFlow](https://www.tensorflow.org/) and [OpenCV](https://www.opencv.org). Here TensorFlow model is used for detecting a 72 point face mash from which the points that correspond to the facial features can be used to detect those landmarks. OpenCV is used to Detect and do Eye Tacking.
+        
+        ### Below are the guides and Tutorials that helped do the project:
+        - The original repository for the model on github [yinguobing/cnn-facial-landmarks](http://github.com/yinguobing/cnn-facial-landmarks).
+        - [Eye tracking guide](https://towardsdatascience.com/real-time-eye-tracking-using-opencv-and-dlib-b504ca724ac6).
+        - The [Comparision of different face detection techniques](https://towardsdatascience.com/face-detection-models-which-to-use-and-why-d263e82c302c).
+
+        ## This Project on GitHub [YashVardhan-AI/Fun-Effects](https://github.com/YashVardhan-AI/Fun-Effects)
+        """
+    )
 
 def welcome():
     st.markdown("By Yash Vardhan")
@@ -23,6 +30,4 @@ def welcome():
     st.markdown("- You Can do it in real time or upload an Image")
     st.markdown("- You Can also change the values of threshold 1 and 2 to get a better result")
     st.markdown("###        About: to read more about the neural network and the algorithm behind the hooks and see how it works is about.")
-
-    
-    
+ 
