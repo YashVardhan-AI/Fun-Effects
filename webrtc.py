@@ -1,16 +1,16 @@
 import streamlit as st
 from helper.info import about, welcome
-from streamlit_webrtc import VideoTransformerBase, webrtc_streamer, ClientSettings
-from helper.effects import *
+from streamlit_webrtc import webrtc_streamer, ClientSettings
+from helper.effects import effect_names
 from rolling import roll
-from helper.compied import funcmain, draw_all
-from helper.face_detector import get_face_detector, find_faces, draw_faces
+from helper.video_transformer import get_video_transformer
+from helper.face_detector import get_face_detector
 
 
 face_model = get_face_detector()
 
 st.set_page_config(
-    page_title = "Face Features and Landmarks Detection"
+    page_title="Face Features and Landmarks Detection"
 )
 
 st.title("Facial Landmarks Detection App")
@@ -28,32 +28,7 @@ if page == "Effects":
     if effect_name == "surprise":
         roll()
     else:
-        class VideoTransformer(VideoTransformerBase):
-            effect_name = effect_name
-
-            def transform(self, frame):
-                img = frame.to_ndarray(format="bgr24")
-                
-                if effect_name == "cartoonify": img = cartoonify(img)
-                elif effect_name == "negative": img = negative(img)
-                elif effect_name == "econify": img = econify(img)
-                elif effect_name == "watercolor": img = watercolor(img)
-                elif effect_name == "pencil": img = pencil(img)
-                elif effect_name == "canny": img = canny_img(img)    
-                elif effect_name == "faces":
-                    try:
-                        rects = find_faces(img, face_model)
-                    
-                        for rect in rects:
-                            img = draw_faces(img, rects)
-                            cxl, cyl, cxr, cyr, points, points2, points3, points4, thresh = funcmain(img, rect, 120)
-                            img = draw_all(img, cxl, cyl, cxr, cyr, points,points2, points3, points4)
-                            
-                    except Exception as e:
-                        print(e)
-                
-                return img
-
+        VideoTransformer = get_video_transformer(effect_name, face_model)
 
         ctxt = webrtc_streamer(
             client_settings = ClientSettings(

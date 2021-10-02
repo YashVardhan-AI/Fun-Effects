@@ -59,9 +59,3 @@ def negative(frame):
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
     frame = cv.resize(frame, (640, 480))
     return frame
-
-
-
-
-
-    
